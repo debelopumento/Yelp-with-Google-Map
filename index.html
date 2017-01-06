@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ramen Finder</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 200px;
+        width: 600px;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+      <script type="text/javascript" src="OAuth.js"></script>
+    <script type="text/javascript" src="SHA1.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAtjZoeYGWfzt4nJ2VM8Hs7NZzhN0wVgI&callback=initMap"></script>
+    <div>
+      <form class="js-search-form">
+        Find Ramen Near:
+        <input type="text" class="js-userInputSearchLocation" placeholder="San Francisco, 95124...">
+        <button class="js-searchLoc" type="submit" value="submit">Search</button>
+        
+      </form>
+    </div>
+    
+    <div>
+      <div class="js-search-results">
+      </div>
+    </div>
+    
+  </body>
+</html>
