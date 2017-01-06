@@ -11,6 +11,7 @@ function swapMap(bizName, navLat, navLng) {
           center: {lat: navLat, lng: navLng},
           zoom: 16,
         });
+
         var marker = new google.maps.Marker({
             position: {lat: navLat, lng: navLng},
             label: bizName,
@@ -43,9 +44,11 @@ function markerclustering(results) {
           zoom: 12,
           center: {lat: centerLat, lng: centerLng}
         });
+        
+        //show traffic
+        var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(map);
 
-        // Create an array of alphabetical characters used to label the markers.
-        //var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var markers = locations.map(function(location, i) {
           return new google.maps.Marker({
             position: location,
@@ -146,18 +149,17 @@ function renderBusinesses(results) {
             var biz = resultBusinesses[i];
             row += '<h4>' + biz.name + '</h4>';
             row += '<p>Yelp Rating: ' + biz.rating + '</p>';
-            row += '<p>Phone number: ' + biz.display_phone + '</p>';
-            row += '<p>Address: </p>';
+            row += '<p>Phone #: ' + biz.display_phone + '</p>';
             row += '<p>' + biz.location.display_address + '</p>';
-            row += '<button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Show On Google Map</button>';
+            row += '<button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Google Map</button></br>';
+            var destLat = resultBusinesses[i].location.coordinate.latitude;
+            var destLng = resultBusinesses[i].location.coordinate.longitude;
+            row += '<a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '">Take Me There</a>';
         }
         $('.js-search-results').html(row);
         $('.js-swapMap').click(function(event){
             var navBizId = $(this).closest('button').attr('id');
-            console.log('biz id: ', navBizId);
             var bizPos = resultBusinesses.map(function(businesses){return businesses.id;}).indexOf(navBizId);
-            console.log('15', bizPos);
-            console.log('16', resultBusinesses[bizPos].name)
             var navLat = resultBusinesses[bizPos].location.coordinate.latitude;
             var navLng = resultBusinesses[bizPos].location.coordinate.longitude;
             swapMap(resultBusinesses[bizPos].name, navLat, navLng);
