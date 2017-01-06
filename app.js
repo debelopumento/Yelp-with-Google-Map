@@ -6,13 +6,14 @@ function initMap() {
         });
       }
 
-function swapMap(navLat, navLng) {
+function swapMap(bizName, navLat, navLng) {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: navLat, lng: navLng},
-          zoom: 15,
+          zoom: 16,
         });
         var marker = new google.maps.Marker({
             position: {lat: navLat, lng: navLng},
+            label: bizName,
             map: map
         });
 
@@ -20,7 +21,9 @@ function swapMap(navLat, navLng) {
 
 
 
+
 $(function() {
+    
     watchSubmit();
 });
 
@@ -117,8 +120,7 @@ function renderBusinesses(results) {
             console.log('16', resultBusinesses[bizPos].name)
             var navLat = resultBusinesses[bizPos].location.coordinate.latitude;
             var navLng = resultBusinesses[bizPos].location.coordinate.longitude;
-            console.log('swap map: latitude: ', navLat, ' longitude: ', navLng);
-            swapMap(navLat, navLng);
+            swapMap(resultBusinesses[bizPos].name, navLat, navLng);
     });  
 }
 
