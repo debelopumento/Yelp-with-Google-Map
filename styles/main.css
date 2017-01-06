@@ -1,0 +1,26 @@
+.left {
+    float: left;
+    width: 50%;
+    height: 100%;
+    overflow: scroll;
+}
+.right {
+    float: left;
+    width: 50%;
+    background: blue;
+    height: 100%;
+    overflow: scroll;
+}
+
+
+ #map {
+        height: 300px;
+        width: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+
+html, body {
+        
+        margin: 10px;
+        padding: 10px;
+      }
