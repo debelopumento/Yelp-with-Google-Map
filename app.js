@@ -1,5 +1,16 @@
+var coordState = {
+    coords: {
+        lattitude: 37.773972, 
+        longitude: -122.431297
+    }    
+}
 
-function initMap() {
+
+
+
+function initMap(coordState) {
+        //var currentCoords = coordState;
+        //console.log(coordState);
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 37.773972, lng: -122.431297},
           zoom: 12
@@ -17,6 +28,8 @@ function swapMap(bizName, navLat, navLng) {
             label: bizName,
             map: map
         });
+        var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(map);
 
 }
 
@@ -75,8 +88,26 @@ function watchSubmit() {
         event.preventDefault();
         var userInputSearchLocation = $(this).find('.js-userInputSearchLocation').val();
         var userInputSearchBiz = $(this).find('.js-userInputSearchBiz').val();
+        console.log(27, userInputSearchBiz);
         getResult(userInputSearchBiz, userInputSearchLocation);
     });
+
+    $('.js-search-currentLoc-form').submit(function(){
+        event.preventDefault();
+        var output = document.getElementById("out");
+        var userInputSearchBizCurrentLoc = $(this).find('.js-userInputSearchBiz2').val();
+        function success(position) {
+            var userLatitude  = position.coords.latitude;
+            var userLongitude = position.coords.longitude;
+            var userInputSearchLocation = userLatitude.toString() + ", " + userLongitude.toString();
+            getResult(userInputSearchBizCurrentLoc, userInputSearchLocation);
+        }
+        function error() {
+            output.innerHTML = "Unable to retrieve your location";
+        }
+        navigator.geolocation.getCurrentPosition(success, error);      
+    });    
+
 }
 
 
