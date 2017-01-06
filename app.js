@@ -177,7 +177,7 @@ function renderBusinesses(results) {
         var resultBusinesses = results.businesses;
         for (var i = 0; i < businessNum; i++) {
             var biz = resultBusinesses[i];
-            row += '<h4>' + biz.name + '</h4>';
+            row += '<h4><a href="' + biz.mobile_url + '" target="_blank">' + biz.name + '</a></h4>';
             row += '<p>Yelp Rating: ' + biz.rating + '</p>';
             row += '<p>Call: ' + '<a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>';
             row += '<p>' + biz.location.display_address + '</p>';
