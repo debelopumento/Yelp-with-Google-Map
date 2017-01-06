@@ -1,7 +1,15 @@
 html, body {
         margin: 10 auto;
         padding: 10px;
+        font-family: "Georgia", Monospace;
       }
+
+button {
+  backgroud: lightGrey;
+  border: 1px solid darkgrey;
+  border-radius: 2px;
+  padding: 3px;
+}
 
 header {
   text-align: center;
