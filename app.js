@@ -1,7 +1,5 @@
 
 function initMap() {
-        //var localLat=coordState.latN;
-        //var localLng=coordState.LngN;
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 37.773972, lng: -122.431297},
           zoom: 12
@@ -9,9 +7,6 @@ function initMap() {
       }
 
 function swapMap(navLat, navLng) {
-        //var localLat=coordState.latN;
-        //var localLng=coordState.LngN;
-        
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: navLat, lng: navLng},
           zoom: 15,
@@ -35,7 +30,6 @@ function watchSubmit() {
     $('.js-search-form').submit(function(){
         event.preventDefault();
         var userInputSearchLocation = $(this).find('.js-userInputSearchLocation').val();
-        console.log(13, userInputSearchLocation);
         getResult(userInputSearchLocation);
     });
 }
@@ -56,7 +50,7 @@ function getResult (userInputSearchLocation) {
                 };
         
                 var terms = 'ramen';
-                var near = 95125;
+                var near = userInputSearchLocation;
                 console.log(12, userInputSearchLocation);
         
                 var accessor = {

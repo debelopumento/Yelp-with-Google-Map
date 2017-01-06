@@ -12,6 +12,11 @@ header {
   border-radius: 4px;
 }
 
+.userInputSearchLocation {
+  width: 250px;
+  padding: 3px;
+}
+
 main {
   margin-top: 20px;
   margin-left: auto;
@@ -22,16 +27,16 @@ main {
 
 .left {
     float: left;
-    width: 65%;
+    width: 63%;
     height: 450px;
-    overflow: scroll;
+    padding-right: 5px;
 }
 
 
 .right {
     float: left;
     padding-left: 40px;
-    width: 30%;
+    width: 28%;
     height: 450px;
     overflow: scroll;
     background: #EEEEEE;
