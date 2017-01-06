@@ -19,11 +19,22 @@ header {
     margin: 5px;
     color: white;
     border-radius: 4px;
+    font-size: 12px;
+    display: flex;
 }
 
+
+
 .userInputSearchLocation {
-    width: 230px;
-    padding: 3px;
+    width: 200px;
+    padding-left: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.searchBar {
+    margin: 0 auto;
+    padding: 0 auto;
 }
 
 main {
