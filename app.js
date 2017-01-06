@@ -177,6 +177,7 @@ function renderBusinesses(results) {
         var resultBusinesses = results.businesses;
         for (var i = 0; i < businessNum; i++) {
             var biz = resultBusinesses[i];
+            row += '<div>';
             row += '<h4><a href="' + biz.mobile_url + '" target="_blank">' + biz.name + '</a></h4>';
             row += '<p>Yelp Rating: ' + biz.rating + '</p>';
             row += '<p>Call: ' + '<a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>';
@@ -185,6 +186,7 @@ function renderBusinesses(results) {
             var destLat = resultBusinesses[i].location.coordinate.latitude;
             var destLng = resultBusinesses[i].location.coordinate.longitude;
             row += '<span><a class="goToGoogleMap" href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '">Get Directions</a></span></div>';
+            row += '</div>';
         }
         $('.js-search-results').html(row);
         $('.js-swapMap').click(function(event){
