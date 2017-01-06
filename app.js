@@ -5,7 +5,7 @@ function initMap() {
           zoom: 12
         });
 }
-
+ 
 function swapMap(bizName, navLat, navLng) {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: navLat, lng: navLng},
@@ -148,7 +148,7 @@ function renderBusinesses(results) {
             var biz = resultBusinesses[i];
             row += '<h4>' + biz.name + '</h4>';
             row += '<p>Yelp Rating: ' + biz.rating + '</p>';
-            row += '<p>Phone #: ' + biz.display_phone + '</p>';
+            row += '<p>Call: ' + '<a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>';
             row += '<p>' + biz.location.display_address + '</p>';
             row += '<div class="mapping"><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span>';
             var destLat = resultBusinesses[i].location.coordinate.latitude;
