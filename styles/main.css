@@ -1,26 +1,43 @@
+header {
+  text-align: center;
+  padding: 20px;
+  background: darkgrey;
+  margin: 5px;
+  color: white;
+}
+
+main {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+
 .left {
     float: left;
-    width: 50%;
+    width: 65%;
     height: 100%;
     overflow: scroll;
 }
+
+
 .right {
     float: left;
-    width: 50%;
-    background: blue;
-    height: 100%;
+    padding-left: 40px;
+    width: 30%;
+    height: 500px;
     overflow: scroll;
 }
 
-
  #map {
-        height: 300px;
+        height: 500px;
         width: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
 
 html, body {
         
-        margin: 10px;
+        margin: 10 auto;
         padding: 10px;
       }

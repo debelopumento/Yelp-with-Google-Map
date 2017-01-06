@@ -18,19 +18,23 @@
         Find Ramen Near:
         <input type="text" class="js-userInputSearchLocation" placeholder="San Francisco, 95124...">
         <button class="js-searchLoc" type="submit" value="submit">Search</button>
-        
       </form>
     </header>
+      
+    <main>
       <div class="left">
+        <div id="map"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAtjZoeYGWfzt4nJ2VM8Hs7NZzhN0wVgI&callback=initMap"></script>
+      </div>
+
+
+      <div class="right">
         <div class="js-search-results">
         </div>
       </div>
     
-    <div class="right">
-    <div class="right" id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAtjZoeYGWfzt4nJ2VM8Hs7NZzhN0wVgI&callback=initMap"></script>
-    </div>
     
+    </main>
       
     
     
