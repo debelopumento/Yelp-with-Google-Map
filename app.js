@@ -20,6 +20,42 @@ function swapMap(bizName, navLat, navLng) {
       }
 
 
+function markerclustering(results) {
+        var locations=[];
+        var businessNum = results.businesses.length;
+        var resultBusinesses = results.businesses;
+        for (var i = 0; i < businessNum; i++) {
+            var localLat = results.businesses[i].location.coordinate.latitude;
+            var localLng = results.businesses[i].location.coordinate.longitude;
+            var localCoord = {
+                    lat: localLat,
+                    lng: localLng
+            };
+            locations.push(localCoord);
+            console.log(17, localCoord);
+        }
+        console.log(18, locations);    
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3,
+          center: {lat: -21, lng: 140.887}
+        });
+
+        // Create an array of alphabetical characters used to label the markers.
+        //var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            //label: labels[i % labels.length]
+          });
+        });
+
+        // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+      }
+      
+
 
 
 $(function() {
@@ -53,7 +89,7 @@ function getResult (userInputSearchLocation) {
                 };
         
                 var terms = 'ramen';
-                var near = userInputSearchLocation;
+                var near = 95125;
                 console.log(12, userInputSearchLocation);
         
                 var accessor = {
@@ -90,6 +126,7 @@ function getResult (userInputSearchLocation) {
                 })
 
                 .done(function(results) {
+                        markerclustering(results);
                         renderBusinesses(results);
                     }
                 )
