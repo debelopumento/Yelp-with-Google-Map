@@ -80,6 +80,7 @@ main {
     padding-right: 0;
     margin-left: 0;
     margin-right: 0;
+    border-radius: 1px;
   }
 
   .userInputSearchLocation {
