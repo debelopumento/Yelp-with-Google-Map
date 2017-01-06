@@ -95,8 +95,7 @@ function getResult (userInputSearchLocation) {
                 };
         
                 var terms = 'ramen';
-                var near = 95125;
-                console.log(12, userInputSearchLocation);
+                var near = userInputSearchLocation;
         
                 var accessor = {
                     consumerSecret : auth.consumerSecret,
