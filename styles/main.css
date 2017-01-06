@@ -14,9 +14,9 @@ button {
 header {
     text-align: center;
     padding-top: 10px;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     background: darkgrey;
-    margin: 5px;
+    margin: 3px;
     color: white;
     border-radius: 4px;
     font-size: 12px;
@@ -74,7 +74,7 @@ main {
     margin-top: 15px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   
   html, body {
     margin: 0;
@@ -95,8 +95,18 @@ main {
   }
 
   .userInputSearchLocation {
-    width: 30%;
+    width: 23%;
+    padding-left: 1px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 12px;
+  }
+
+  button {
+    border: 1px solid darkgrey;
+    border-radius: 2px;
     padding: 2px;
+    font-size: 12px;
   }
 
   main {
