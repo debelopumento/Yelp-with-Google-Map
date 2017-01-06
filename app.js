@@ -24,6 +24,8 @@ function markerclustering(results) {
         var locations=[];
         var businessNum = results.businesses.length;
         var resultBusinesses = results.businesses;
+        var latT=0;
+        var lngT=0;
         for (var i = 0; i < businessNum; i++) {
             var localLat = results.businesses[i].location.coordinate.latitude;
             var localLng = results.businesses[i].location.coordinate.longitude;
@@ -31,14 +33,15 @@ function markerclustering(results) {
                     lat: localLat,
                     lng: localLng
             };
+            latT = latT + localLat;
+            lngT = lngT + localLng;
             locations.push(localCoord);
-            console.log(17, localCoord);
         }
-        console.log(18, locations);    
-
+        var centerLat = latT / businessNum;
+        var centerLng = lngT / businessNum;
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
-          center: {lat: -21, lng: 140.887}
+          zoom: 12,
+          center: {lat: centerLat, lng: centerLng}
         });
 
         // Create an array of alphabetical characters used to label the markers.
