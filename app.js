@@ -150,10 +150,10 @@ function renderBusinesses(results) {
             row += '<p>Yelp Rating: ' + biz.rating + '</p>';
             row += '<p>Phone #: ' + biz.display_phone + '</p>';
             row += '<p>' + biz.location.display_address + '</p>';
-            row += '<button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Google Map</button></br>';
+            row += '<div class="mapping"><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span>';
             var destLat = resultBusinesses[i].location.coordinate.latitude;
             var destLng = resultBusinesses[i].location.coordinate.longitude;
-            row += '<a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '">Take Me There</a>';
+            row += '<span><a class="goToGoogleMap" href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '">Take Me There</a></span></div>';
         }
         $('.js-search-results').html(row);
         $('.js-swapMap').click(function(event){

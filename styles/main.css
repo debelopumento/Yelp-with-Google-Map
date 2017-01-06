@@ -1,6 +1,6 @@
 html, body {
-        margin: 10 auto;
-        padding: 10px;
+        margin: 5 auto;
+        padding: 5px;
         font-family: "Georgia", Monospace;
       }
 
@@ -40,6 +40,11 @@ main {
     padding-right: 5px;
 }
 
+#map {
+        height: 450px;
+        width: 100%;
+        border-radius: 10px;
+}
 
 .right {
     float: left;
@@ -52,9 +57,33 @@ main {
     font-size: 14px;
 }
 
- #map {
-        height: 450px;
-        width: 100%;
-        border-radius: 10px;
-      }
+.goToGoogleMap {
+  padding: 5px;
+  margin-top: 15px;
+}
 
+@media (max-width: 640px) {
+  main {
+    width: 100%;
+  }
+
+  #map {
+    height: 150px;
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .left {
+    width: 100%;
+    padding: 5px;
+    float: center;
+    height: 150px;
+  }
+
+  .right {
+    width: 100%;
+    background: #EEEEEE;
+    border-radius: 2px;
+    font-size: 12px;
+  }
+}
