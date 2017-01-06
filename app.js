@@ -4,7 +4,7 @@ function initMap() {
           center: {lat: 37.773972, lng: -122.431297},
           zoom: 12
         });
-      }
+}
 
 function swapMap(bizName, navLat, navLng) {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -18,7 +18,7 @@ function swapMap(bizName, navLat, navLng) {
             map: map
         });
 
-      }
+}
 
 
 function markerclustering(results) {
@@ -65,7 +65,6 @@ function markerclustering(results) {
 
 
 $(function() {
-    
     watchSubmit();
 });
 
@@ -75,15 +74,16 @@ function watchSubmit() {
     $('.js-search-form').submit(function(){
         event.preventDefault();
         var userInputSearchLocation = $(this).find('.js-userInputSearchLocation').val();
-        getResult(userInputSearchLocation);
+        var userInputSearchBiz = $(this).find('.js-userInputSearchBiz').val();
+        getResult(userInputSearchBiz, userInputSearchLocation);
     });
 }
 
 
-function getResult (userInputSearchLocation) {
+function getResult (userInputSearchBiz, userInputSearchLocation) {
                 function cb(data) {        
                     console.log("cb: " + JSON.stringify(data));
-            }
+                }
                 var auth = {
                     consumerKey : "msiwtsUTuGQOvXSRTkbO7g",
                     consumerSecret : "wBbvE-5SnXxv2VpByelMxNuwSeA",
@@ -94,7 +94,7 @@ function getResult (userInputSearchLocation) {
                     }
                 };
         
-                var terms = 'ramen';
+                var terms = userInputSearchBiz;
                 var near = userInputSearchLocation;
         
                 var accessor = {
