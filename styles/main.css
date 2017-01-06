@@ -31,6 +31,7 @@ main {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+
 }
 
 
@@ -53,7 +54,6 @@ main {
     width: 28%;
     height: 450px;
     overflow: scroll;
-    background: #EEEEEE;
     border-radius: 10px;
     font-size: 14px;
 }
@@ -83,7 +83,7 @@ main {
   }
 
   .userInputSearchLocation {
-    width: 40%;
+    width: 30%;
     padding: 2px;
   }
 
@@ -111,16 +111,15 @@ main {
   }
 
   .right {
-    width: 100%;
-    background: #EEEEEE;
+    width: 95%;
     border-radius: 2px;
     font-size: 12px;
     overflow: scroll;
     height: 500px;
     float: center;
-    padding-left: 0;
+    padding-left: 0px;
     padding-right: 0;
     margin-right: 0;
-    margin-left 0;
+    margin-left: 15px;
   }
 }
