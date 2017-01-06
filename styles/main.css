@@ -84,7 +84,7 @@ main {
 
   header {
     font-size: 12px;
-    padding-bottom: 8px;
+    padding-bottom: 4px;
     margin-bottom: 2px;
     width: 100%;
     padding-left: 0;
@@ -94,8 +94,13 @@ main {
     border-radius: 1px;
   }
 
+  form {
+    padding: 0px;
+    margin: 0px;
+  }
+
   .userInputSearchLocation {
-    width: 23%;
+    width: 20%;
     padding-left: 1px;
     padding-top: 0px;
     padding-bottom: 0px;
