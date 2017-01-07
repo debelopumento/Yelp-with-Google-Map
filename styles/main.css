@@ -1,6 +1,6 @@
 html, body {
     margin: 0 auto;
-    padding: 5px;
+    padding: 1px;
     font-family: "Georgia", Monospace;
 }
 
@@ -29,8 +29,8 @@ header {
     background: #32a9e5;
     margin-top: 0px;
     color: white;
-    border-radius: 4px;
-    font-size: 12px;
+    border-radius: 2px;
+    font-size: 11px;
     display: flex;
 }
 
@@ -50,10 +50,10 @@ header {
 }
 
 main {
-    margin-top: 20px;
+    margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 100%;
 
 }
 
@@ -62,13 +62,13 @@ main {
     float: left;
     width: 63%;
     height: 450px;
-    padding-right: 5px;
+    padding-right: 0px;
 }
 
 #map {
     height: 450px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 3px;
 }
 
 .right {
@@ -137,7 +137,6 @@ main {
   }
 
   button {
-    border: 1px solid darkgrey;
     border-radius: 2px;
     padding: 2px;
     font-size: 12px;
