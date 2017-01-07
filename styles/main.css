@@ -1,5 +1,5 @@
 html, body {
-    margin: 2 auto;
+    margin: 0 auto;
     padding: 5px;
     font-family: "Georgia", Monospace;
 }
@@ -26,7 +26,7 @@ header {
     text-align: center;
     padding-top: 7px;
     padding-bottom: 7px;
-    background: #26a6e6;
+    background: #32a9e5;
     margin-top: 0px;
     color: white;
     border-radius: 4px;
@@ -37,8 +37,8 @@ header {
 
 
 .userInputSearchLocation {
-    width: 200px;
-    padding-left: 3px;
+    width: 100px;
+    padding-left: 2px;
     padding-top: 2px;
     padding-bottom: 2px;
     border: 0;
@@ -99,7 +99,7 @@ main {
     font-family: "Georgia", Monospace;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 567px) {
   
   html, body {
     margin: 0;

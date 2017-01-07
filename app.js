@@ -1,24 +1,29 @@
-var coordState = {
-    coords: {
-        lattitude: 37.773972, 
-        longitude: -122.431297
-    }    
+var mapState = {
+            latitude: 37.773972, 
+            longitude: -122.431297,
+            map: null
 }
 
 
 
 
-function initMap(coordState) {
+function initMap() {
         //var currentCoords = coordState;
-        //console.log(coordState);
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 37.773972, lng: -122.431297},
+        console.log(mapState.map);
+         mapState.map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: mapState.latitude, lng: mapState.longitude},
           zoom: 12
         });
+        //mapState.map.latitude=33;
+
 }
  
 function swapMap(bizName, navLat, navLng) {
-        var map = new google.maps.Map(document.getElementById('map'), {
+        
+        //mapState.map.setcenter()...
+
+
+        mapState.map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: navLat, lng: navLng},
           zoom: 16,
         });
@@ -26,7 +31,7 @@ function swapMap(bizName, navLat, navLng) {
         var marker = new google.maps.Marker({
             position: {lat: navLat, lng: navLng},
             label: bizName,
-            map: map
+            map: mapState.map
         });
         var trafficLayer = new google.maps.TrafficLayer();
             trafficLayer.setMap(map);
@@ -125,8 +130,8 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                     }
                 };
         
-                var terms = userInputSearchBiz;
-                var near = userInputSearchLocation;
+                var terms = 'ramen';
+                var near = 95124;
         
                 var accessor = {
                     consumerSecret : auth.consumerSecret,
