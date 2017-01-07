@@ -4,6 +4,14 @@ html, body {
     font-family: "Arial", Helvetica, Monospace;
 }
 
+a {
+    color: #26a6e6;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #185d80;
+}
 
 p {
     font-size: 12px;
