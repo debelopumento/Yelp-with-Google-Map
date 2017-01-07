@@ -130,8 +130,8 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                     }
                 };
         
-                var terms = 'ramen';
-                var near = 95124;
+                var terms = userInputSearchBiz;
+                var near = userInputSearchLocation;
         
                 var accessor = {
                     consumerSecret : auth.consumerSecret,
@@ -201,5 +201,3 @@ function renderBusinesses(results) {
             swapMap(resultBusinesses[bizPos].name, navLat, navLng);
     });  
 }
-
-
