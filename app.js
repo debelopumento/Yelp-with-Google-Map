@@ -182,14 +182,14 @@ function renderBusinesses(results) {
         var resultBusinesses = results.businesses;
         for (var i = 0; i < businessNum; i++) {
             var biz = resultBusinesses[i];
-            row += '<div>';
+            row += '<div class="listViewUnit">';
             row += '<div class="bizInfoTitleLine"><h4><a href="' + biz.mobile_url + '" target="_blank">' + biz.name + '          </a>' + '<img src="' + biz.rating_img_url_small + '"></h4></div>';
             row += '<p>Call: ' + '<a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>';
             row += '<p>' + biz.location.display_address + '</p>';
-            row += '<div class="mapping"><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span>';
+            row += '<div><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span> ';
             var destLat = resultBusinesses[i].location.coordinate.latitude;
             var destLng = resultBusinesses[i].location.coordinate.longitude;
-            row += '<span><a class="goToGoogleMap" href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '">Get Directions</a></span></div>';
+            row += '<span><a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '"><button>Get Directions</button></a></span></div>';
             row += '</div>';
         }
         $('.js-search-results').html(row);

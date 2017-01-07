@@ -1,17 +1,14 @@
 html, body {
     margin: 0 auto;
     padding: 1px;
-    font-family: "Georgia", Monospace;
+    font-family: "Arial", Helvetica, Monospace;
 }
 
-a {
-    color: #26a6e6;
-    font-family: "Georgia", Monospace;
-    text-decoration: none;
-}
 
-a:hover {
-    color: #185d80;
+p {
+    font-size: 12px;
+    margin: 2px;
+    padding: 1px;
 }
 
 button {
@@ -23,9 +20,10 @@ button {
 }
 
 header {
+    height: 20%;
     text-align: center;
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     background: #32a9e5;
     margin-top: 0px;
     color: white;
@@ -54,13 +52,12 @@ main {
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-
 }
 
 
 .left {
     float: left;
-    width: 63%;
+    width: 60%;
     height: 450px;
     padding-right: 0px;
 }
@@ -72,32 +69,28 @@ main {
 }
 
 .right {
-    float: left;
-    padding-left: 40px;
-    width: 28%;
+    float: right;
+    padding-left: 5px;
+    width: 38%;
     height: 450px;
     overflow: scroll;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 13px;
 }
+
+.listViewUnit {
+    border-bottom: 1px darkgrey solid;
+    padding: 2px;
+}
+
+
 
 .bizInfoTitleLine {
     vertical-align: middle;
     padding-right: 15px;
 }
 
-.goToGoogleMap {
-    padding: 5px;
-    margin-top: 15px;
-    background-color: #f2c869;
-    margin: 2px;
-    padding: 2px;
-    border: solid 0px #AAAAAA;
-    border-radius: 2px;
-    color: black;
-    text-decoration: none;
-    font-family: "Georgia", Monospace;
-}
+
 
 @media (max-width: 567px) {
   
@@ -129,8 +122,9 @@ main {
   }
 
   .userInputSearchLocation {
-    width: 20%;
-    padding-left: 1px;
+    width: 27%;
+    padding-left: 0 auto;
+    padding-right: 0 auto;
     padding-top: 0px;
     padding-bottom: 0px;
     font-size: 12px;
