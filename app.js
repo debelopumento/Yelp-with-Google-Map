@@ -178,8 +178,7 @@ function renderBusinesses(results) {
         for (var i = 0; i < businessNum; i++) {
             var biz = resultBusinesses[i];
             row += '<div>';
-            row += '<h4><a href="' + biz.mobile_url + '" target="_blank">' + biz.name + '</a></h4>';
-            row += '<p>Yelp Rating: ' + biz.rating + '</p>';
+            row += '<div class="bizInfoTitleLine"><h4><a href="' + biz.mobile_url + '" target="_blank">' + biz.name + '          </a>' + '<img src="' + biz.rating_img_url_small + '"></h4></div>';
             row += '<p>Call: ' + '<a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>';
             row += '<p>' + biz.location.display_address + '</p>';
             row += '<div class="mapping"><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span>';
