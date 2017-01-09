@@ -4,6 +4,13 @@ var mapState = {
             map: null
 }
 
+var userLocation = {
+        latitude: 37.773972,
+        longitude: -122.431297
+}
+
+var searchResults = {}
+
 
 $(function() {
     initMap();
@@ -32,9 +39,9 @@ function watchSubmit() {
         var output = document.getElementById("out");
         var userInputSearchBizCurrentLoc = $(this).find('.js-userInputSearchBiz2').val();
         function success(position) {
-            var userLatitude  = position.coords.latitude;
-            var userLongitude = position.coords.longitude;
-            var userInputSearchLocation = userLatitude.toString() + ", " + userLongitude.toString();
+            userLocation.latitude  = position.coords.latitude;
+            userLocation.longitude = position.coords.longitude;
+            var userInputSearchLocation = userLocation.latitude.toString() + ", " + userLocation.longitude.toString();
             getResult(userInputSearchBizCurrentLoc, userInputSearchLocation);
         }
         function error() {
@@ -60,8 +67,9 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                     }
                 };
         
-                var terms = userInputSearchBiz;
+                var terms = 'spa';
                 var near = userInputSearchLocation;
+
         
                 var accessor = {
                     consumerSecret : auth.consumerSecret,
@@ -97,30 +105,38 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                 })
 
                 .done(function(results) {
-                        renderBusinesses(results);
+                        searchResults = results;
+                        renderBusinesses();
                     }
                 )
 }
 
 
-function renderBusinesses(results) {
+function renderBusinesses() {
+        
         var row = '';
-        var businessNum = results.businesses.length;
+        var businessNum = searchResults.businesses.length;
         var locations=[];
         var bizNames=[];
         var bizInfo=[];
         var markers=[];
-        console.log(results);
-        var resultBusinesses = results.businesses;
+        console.log(searchResults);
+        var resultBusinesses = searchResults.businesses;
         for (var i = 0; i < businessNum; i++) {
             var biz = resultBusinesses[i];
             row += '<div class="listViewUnit">';
             row += '<div class="bizInfoTitleLine"><h4><a href="' + biz.mobile_url + '" target="_blank">' + biz.name + '          </a>' + '<img src="' + biz.rating_img_url_small + '"></h4></div>';
             row += '<p>Call: ' + '<a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>';
-            row += '<p>' + biz.location.display_address + '</p>';
-            row += '<div><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span> ';
             var destLat = resultBusinesses[i].location.coordinate.latitude;
             var destLng = resultBusinesses[i].location.coordinate.longitude;
+            
+
+            //
+
+            row += '<p>Distance: ' + '<span class="js-tripDistance-' + i + '"></span>' + 'Duration: ' + '<span class="js-tripDuration-' + i + '"></span>' + '</p>';
+
+            row += '<p>' + biz.location.display_address + '</p>';
+            row += '<div><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span> ';
             row += '<span><a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '"><button>Get Directions</button></a></span></div>';
             row += '</div>';
             var localCoord = {
@@ -136,14 +152,21 @@ function renderBusinesses(results) {
             markers.push(marker);
             bizInfo[i] = biz.name + ' ' + biz.location.display_address + ' ' + biz.display_phone;
             attachBizInfo(marker, bizInfo[i]);
+
     
         }
         $('.js-search-results').html(row);
 
-        mapState.latitude = results.region.center.latitude;
-        mapState.longitude = results.region.center.longitude;
+
+        
+        
+
+
+
+        mapState.latitude = searchResults.region.center.latitude;
+        mapState.longitude = searchResults.region.center.longitude;
         mapState.map.setCenter({lat: mapState.latitude, lng: mapState.longitude});
-        mapState.map.setZoom(11);
+        mapState.map.setZoom(12);
 
         // Add a marker clusterer to manage the markers.
         var markerCluster = new MarkerClusterer(mapState.map, markers,
@@ -165,8 +188,9 @@ function attachBizInfo(marker, bizInfo) {
     var infowindow = new google.maps.InfoWindow({
           content: bizInfo
         });
-
         marker.addListener('click', function() {
           infowindow.open(marker.get('map'), marker);
         });
 }
+
+
