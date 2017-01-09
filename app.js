@@ -16,11 +16,8 @@ function initMap() {
           center: {lat: mapState.latitude, lng: mapState.longitude},
           zoom: 12
         });
-    //mapState.map.setCenter({lat: 37, lng: -120});
 }
  
-
-
 function watchSubmit() {
     $('.js-search-form').submit(function(){
         event.preventDefault();
@@ -103,7 +100,6 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                         renderBusinesses(results);
                     }
                 )
-
 }
 
 
@@ -111,6 +107,7 @@ function renderBusinesses(results) {
         var row = '';
         var businessNum = results.businesses.length;
         var locations=[];
+        var bizNames=[];
         console.log(results);
         var resultBusinesses = results.businesses;
         for (var i = 0; i < businessNum; i++) {
@@ -129,24 +126,26 @@ function renderBusinesses(results) {
                     lng: destLng
             };
             locations.push(localCoord);
+            bizNames.push(biz.name);           
         }
         $('.js-search-results').html(row);
 
-        //marker clustering
+        //make marker cluster
         mapState.latitude = results.region.center.latitude;
         mapState.longitude = results.region.center.longitude;
         mapState.map.setCenter({lat: mapState.latitude, lng: mapState.longitude});
-        mapState.map.setZoom(12); 
+        mapState.map.setZoom(13); 
 
-        var markers = locations.map(function(location, i) {
+        var markers = locations.map(function(location, j) {
           return new google.maps.Marker({
             position: location,
-            //label: labels[i % labels.length]
+            label: bizNames[j],
+            map: mapState.map
           });
         });
 
         // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer( mapState.map, markers,
+        var markerCluster = new MarkerClusterer(mapState.map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
 
@@ -156,12 +155,6 @@ function renderBusinesses(results) {
             mapState.latitude = resultBusinesses[bizPos].location.coordinate.latitude;
             mapState.longitude = resultBusinesses[bizPos].location.coordinate.longitude;
             mapState.map.setCenter({lat: mapState.latitude, lng: mapState.longitude});
-            mapState.map.setZoom(13); 
-            var marker = new google.maps.Marker({
-                position: {lat: mapState.latitude, lng: mapState.longitude},
-                label: resultBusinesses[bizPos].name,
-                map: mapState.map
-            });
-
-    });  
+            mapState.map.setZoom(19); 
+        });  
 }
