@@ -60,8 +60,8 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                     }
                 };
         
-                var terms = 'ramen';
-                var near = 'san francisco noe';
+                var terms = userInputSearchBiz;
+                var near = userInputSearchLocation;
         
                 var accessor = {
                     consumerSecret : auth.consumerSecret,
@@ -129,17 +129,12 @@ function renderBusinesses(results) {
             };
             locations.push(localCoord);
             bizNames.push(biz.name);
-
             var marker = new google.maps.Marker({
                 position: {lat: destLat, lng: destLng},
                 map: mapState.map
             });
-            
             markers.push(marker);
-
             bizInfo[i] = biz.name + ' ' + biz.location.display_address + ' ' + biz.display_phone;
-
-
             attachBizInfo(marker, bizInfo[i]);
     
         }
@@ -148,12 +143,11 @@ function renderBusinesses(results) {
         mapState.latitude = results.region.center.latitude;
         mapState.longitude = results.region.center.longitude;
         mapState.map.setCenter({lat: mapState.latitude, lng: mapState.longitude});
-        mapState.map.setZoom(13);
+        mapState.map.setZoom(11);
 
         // Add a marker clusterer to manage the markers.
         var markerCluster = new MarkerClusterer(mapState.map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
 
         $('.js-swapMap').click(function(event){
             var navBizId = $(this).closest('button').attr('id');
