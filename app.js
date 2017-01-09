@@ -2,14 +2,15 @@ var mapState = {
             latitude: 37.773972, 
             longitude: -122.431297,
             map: null
-}
+};
 
 var userLocation = {
         latitude: 37.773972,
         longitude: -122.431297
-}
+};
 
-var searchResults = {}
+var searchResults = {};
+var tripDistances = [];
 var tripDurations = [];
 
 $(function() {
@@ -107,14 +108,15 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                 .done(function(results) {
                         searchResults = results;
                         calculateTrips();
-                        renderBusinesses();
+                        //renderBusinesses();
                     }
                 )
 }
 
 
 function renderBusinesses() {
-        
+        console.log(100);
+        console.log(101, tripDurations);
         var row = '';
         var businessNum = searchResults.businesses.length;
         var locations=[];
@@ -130,12 +132,7 @@ function renderBusinesses() {
             row += '<p>Call: ' + '<a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>';
             var destLat = resultBusinesses[i].location.coordinate.latitude;
             var destLng = resultBusinesses[i].location.coordinate.longitude;
-            
-
-            //
-
-            row += '<p>Distance: ' + '<span class="js-tripDistance-' + i + '"></span>' + biz.distance + '   Duration: ' + '<span class="js-tripDuration-' + i + '"></span>' + '</p>';
-
+            row += '<p>Distance: ' + tripDistances[i] + '   Duration: ' + tripDurations[i] + '</p>';
             row += '<p>' + biz.location.display_address + '</p>';
             row += '<div><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span> ';
             row += '<span><a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '"><button>Get Directions</button></a></span></div>';
@@ -191,7 +188,7 @@ function attachBizInfo(marker, bizInfo) {
 
 
 function calculateTrips() {
-    var origin1 = 'san francisco';
+    var origin1 = {lat: userLocation.latitude, lng: userLocation.longitude};
         for (i=0; i<20; i++) {
             console.log(3, searchResults.businesses[i]);
             var destinationA = {lat: searchResults.businesses[i].location.coordinate.latitude, lng: searchResults.businesses[i].location.coordinate.longitude};
@@ -205,11 +202,12 @@ function calculateTrips() {
               avoidTolls: false
               }, function(response) {
                     var results = response.rows[0].elements;
-                    console.log(5, response.rows);
-                    //console.log(1, results[0].distance);
-                    console.log(2, results[0].duration);
+                    //console.log(5, response.rows);
+                    tripDistances.push(results[0].distance.text);
                     tripDurations.push(results[0].duration.text);
-                    console.log(90, tripDurations);
+                    //console.log(90, tripDurations);
+                    renderBusinesses();
+
             });
             console.log(80);
         }   
