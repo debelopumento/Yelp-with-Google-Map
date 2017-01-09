@@ -108,6 +108,8 @@ function renderBusinesses(results) {
         var businessNum = results.businesses.length;
         var locations=[];
         var bizNames=[];
+        var bizInfo=[];
+        var markers=[];
         console.log(results);
         var resultBusinesses = results.businesses;
         for (var i = 0; i < businessNum; i++) {
@@ -126,23 +128,27 @@ function renderBusinesses(results) {
                     lng: destLng
             };
             locations.push(localCoord);
-            bizNames.push(biz.name);           
+            bizNames.push(biz.name);
+
+            var marker = new google.maps.Marker({
+                position: {lat: destLat, lng: destLng},
+                map: mapState.map
+            });
+            
+            markers.push(marker);
+
+            bizInfo[i] = biz.name + ' ' + biz.location.display_address + ' ' + biz.display_phone;
+
+
+            attachBizInfo(marker, bizInfo[i]);
+    
         }
         $('.js-search-results').html(row);
 
-        //make marker cluster
         mapState.latitude = results.region.center.latitude;
         mapState.longitude = results.region.center.longitude;
         mapState.map.setCenter({lat: mapState.latitude, lng: mapState.longitude});
-        mapState.map.setZoom(13); 
-
-        var markers = locations.map(function(location, j) {
-          return new google.maps.Marker({
-            position: location,
-            label: bizNames[j],
-            map: mapState.map
-          });
-        });
+        mapState.map.setZoom(13);
 
         // Add a marker clusterer to manage the markers.
         var markerCluster = new MarkerClusterer(mapState.map, markers,
@@ -155,6 +161,18 @@ function renderBusinesses(results) {
             mapState.latitude = resultBusinesses[bizPos].location.coordinate.latitude;
             mapState.longitude = resultBusinesses[bizPos].location.coordinate.longitude;
             mapState.map.setCenter({lat: mapState.latitude, lng: mapState.longitude});
-            mapState.map.setZoom(19); 
+            mapState.map.setZoom(17); 
         });  
+}
+
+
+
+function attachBizInfo(marker, bizInfo) {
+    var infowindow = new google.maps.InfoWindow({
+          content: bizInfo
+        });
+
+        marker.addListener('click', function() {
+          infowindow.open(marker.get('map'), marker);
+        });
 }
