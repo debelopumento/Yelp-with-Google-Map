@@ -10,7 +10,7 @@ var userLocation = {
 }
 
 var searchResults = {}
-
+var tripDurations = [];
 
 $(function() {
     initMap();
@@ -106,6 +106,7 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
 
                 .done(function(results) {
                         searchResults = results;
+                        calculateTrips();
                         renderBusinesses();
                     }
                 )
@@ -133,7 +134,7 @@ function renderBusinesses() {
 
             //
 
-            row += '<p>Distance: ' + '<span class="js-tripDistance-' + i + '"></span>' + 'Duration: ' + '<span class="js-tripDuration-' + i + '"></span>' + '</p>';
+            row += '<p>Distance: ' + '<span class="js-tripDistance-' + i + '"></span>' + biz.distance + '   Duration: ' + '<span class="js-tripDuration-' + i + '"></span>' + '</p>';
 
             row += '<p>' + biz.location.display_address + '</p>';
             row += '<div><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span> ';
@@ -156,11 +157,6 @@ function renderBusinesses() {
     
         }
         $('.js-search-results').html(row);
-
-
-        
-        
-
 
 
         mapState.latitude = searchResults.region.center.latitude;
@@ -194,3 +190,27 @@ function attachBizInfo(marker, bizInfo) {
 }
 
 
+function calculateTrips() {
+    var origin1 = 'san francisco';
+        for (i=0; i<20; i++) {
+            console.log(3, searchResults.businesses[i]);
+            var destinationA = {lat: searchResults.businesses[i].location.coordinate.latitude, lng: searchResults.businesses[i].location.coordinate.longitude};
+            var service = new google.maps.DistanceMatrixService;
+            service.getDistanceMatrix({
+              origins: [origin1],
+              destinations: [destinationA],
+              travelMode: 'DRIVING',
+              unitSystem: google.maps.UnitSystem.METRIC,
+              avoidHighways: false,
+              avoidTolls: false
+              }, function(response) {
+                    var results = response.rows[0].elements;
+                    console.log(5, response.rows);
+                    //console.log(1, results[0].distance);
+                    console.log(2, results[0].duration);
+                    tripDurations.push(results[0].duration.text);
+                    console.log(90, tripDurations);
+            });
+            console.log(80);
+        }   
+}
