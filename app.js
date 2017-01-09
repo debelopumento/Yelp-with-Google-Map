@@ -76,7 +76,7 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                     }
                 };
         
-                var terms = 'spa';
+                var terms = userInputSearchBiz;
                 var near = userInputSearchLocation;
 
         
