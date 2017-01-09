@@ -64,7 +64,7 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                 };
         
                 var terms = 'ramen';
-                var near = '95124';
+                var near = 'san francisco noe';
         
                 var accessor = {
                     consumerSecret : auth.consumerSecret,
@@ -124,27 +124,19 @@ function renderBusinesses(results) {
             var destLng = resultBusinesses[i].location.coordinate.longitude;
             row += '<span><a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '"><button>Get Directions</button></a></span></div>';
             row += '</div>';
-            
-            var localLat = results.businesses[i].location.coordinate.latitude;
-            var localLng = results.businesses[i].location.coordinate.longitude;
             var localCoord = {
-                    lat: localLat,
-                    lng: localLng
+                    lat: destLat,
+                    lng: destLng
             };
             locations.push(localCoord);
-
         }
-        
         $('.js-search-results').html(row);
-
 
         //marker clustering
         mapState.latitude = results.region.center.latitude;
         mapState.longitude = results.region.center.longitude;
-        mapState.map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: {lat: mapState.latitude, lng: mapState.longitude}
-        });
+        mapState.map.setCenter({lat: mapState.latitude, lng: mapState.longitude});
+        mapState.map.setZoom(12); 
 
         var markers = locations.map(function(location, i) {
           return new google.maps.Marker({
@@ -158,18 +150,16 @@ function renderBusinesses(results) {
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
 
-
         $('.js-swapMap').click(function(event){
             var navBizId = $(this).closest('button').attr('id');
             var bizPos = resultBusinesses.map(function(businesses){return businesses.id;}).indexOf(navBizId);
             mapState.latitude = resultBusinesses[bizPos].location.coordinate.latitude;
             mapState.longitude = resultBusinesses[bizPos].location.coordinate.longitude;
-            mapState.map = new google.maps. Map(document.getElementById('map'));
             mapState.map.setCenter({lat: mapState.latitude, lng: mapState.longitude});
             mapState.map.setZoom(13); 
             var marker = new google.maps.Marker({
                 position: {lat: mapState.latitude, lng: mapState.longitude},
-                //label: resultBusinesses[bizPos].name,
+                label: resultBusinesses[bizPos].name,
                 map: mapState.map
             });
 
