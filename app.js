@@ -31,7 +31,15 @@ function watchSubmit() {
         event.preventDefault();
         var userInputSearchLocation = $(this).find('.js-userInputSearchLocation').val();
         var userInputSearchBiz = $(this).find('.js-userInputSearchBiz').val();
-        console.log(27, userInputSearchBiz);
+        //get user location
+        function success(position) {
+            userLocation.latitude  = position.coords.latitude;
+            userLocation.longitude = position.coords.longitude;
+        }
+        function error() {
+            output.innerHTML = "Unable to retrieve your location";
+        }
+        navigator.geolocation.getCurrentPosition(success, error);
         getResult(userInputSearchBiz, userInputSearchLocation);
     });
 
@@ -108,7 +116,6 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                 .done(function(results) {
                         searchResults = results;
                         calculateTrips();
-                        //renderBusinesses();
                     }
                 )
 }
@@ -188,27 +195,27 @@ function attachBizInfo(marker, bizInfo) {
 
 
 function calculateTrips() {
-    var origin1 = {lat: userLocation.latitude, lng: userLocation.longitude};
+    //var origin = "san francisco";
+    var origin = {lat: userLocation.latitude, lng: userLocation.longitude};
         for (i=0; i<20; i++) {
-            console.log(3, searchResults.businesses[i]);
-            var destinationA = {lat: searchResults.businesses[i].location.coordinate.latitude, lng: searchResults.businesses[i].location.coordinate.longitude};
+            var destination = {lat: searchResults.businesses[i].location.coordinate.latitude, lng: searchResults.businesses[i].location.coordinate.longitude};
             var service = new google.maps.DistanceMatrixService;
             service.getDistanceMatrix({
-              origins: [origin1],
-              destinations: [destinationA],
+              origins: [origin],
+              destinations: [destination],
               travelMode: 'DRIVING',
-              unitSystem: google.maps.UnitSystem.METRIC,
+              unitSystem: google.maps.UnitSystem.IMPERIAL,
               avoidHighways: false,
               avoidTolls: false
               }, function(response) {
                     var results = response.rows[0].elements;
                     //console.log(5, response.rows);
+                    console.log(99, results[0].distance.text);
                     tripDistances.push(results[0].distance.text);
                     tripDurations.push(results[0].duration.text);
                     //console.log(90, tripDurations);
                     renderBusinesses();
 
             });
-            console.log(80);
         }   
 }
