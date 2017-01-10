@@ -112,17 +112,22 @@ main {
 
 .listViewUnit {
     display: flex;
-    border-bottom: 1px darkgrey solid;
+    border-bottom: 1px lightgrey solid;
     padding: 2px;
 }
 
 .listViewUnit-left {
-    width: 30%;
-    padding: 5px;
+    padding: 1px;
+}
+
+.listViewUnit-right {
+    padding-left: 3px;
+    margin-left: 3px;
+    float: left;
 }
 
 .bizThumb {
-    width: 80%;
+    width: 99px;
     border-radius: 4px;
 }
 
@@ -232,7 +237,9 @@ main {
   .listViewUnit-right {
     float: left;
   }
-
+  .bizThumb {
+    width: 92px;
+  }
 
 
 
