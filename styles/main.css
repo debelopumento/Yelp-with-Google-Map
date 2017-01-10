@@ -2,6 +2,7 @@ html, body {
     margin: 0 auto;
     padding: 1px;
     font-family: "Arial", Helvetica, Monospace;
+    color: #717171;
 }
 
 a {
@@ -19,7 +20,6 @@ p {
     margin-bottom: 2px;
     padding-top: 0px;
     padding-bottom: 2px;
-    color: darkgrey;
 }
 
 h4 {

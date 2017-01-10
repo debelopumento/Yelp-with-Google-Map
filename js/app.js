@@ -135,8 +135,12 @@ function renderBusinesses() {
             var destLat = biz.location.coordinate.latitude;
             var destLng = biz.location.coordinate.longitude;
             row += '<div class="listViewUnit">';
-            row += '<div class="bizInfoTitleLine"><h4><a href="' + biz.mobile_url + '" target="_blank">' + biz.name + ' </a>' + '<img src="' + biz.rating_img_url_small + '"></h4><p>';
-            row += biz.categories +'</p></div>';
+            row += '<div class="bizInfoTitleLine"><h4><a href="' + biz.mobile_url + '" target="_blank">' + biz.name + ' </a>' + '<img src="' + biz.rating_img_url_small + '"></h4></div>';
+            
+            for (h=0; h < biz.categories.length; h++) {
+                row += '<span>' + biz.categories[h][0]  +' </span>';
+            }
+            //row += '<p>' + biz.categories[1][0]  +'</p>';
             row += '<p><a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>' + ' | ' + tripDistances[i] + ', ' + tripDurations[i] + ' drive.</p>';
             //row += '<p>' + tripDistances[i] + ', ' + tripDurations[i] + ' drive.</p>';
             row += '<p>' + biz.location.display_address + '</p>';
