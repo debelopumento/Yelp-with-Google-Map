@@ -59,10 +59,24 @@ nav {
     border: 0;
 }
 
-.searchBar {
-    margin: 0 auto;
-    padding: 0 auto;
+
+
+.searchBar-left {
+    width: 58%;
 }
+
+.searchBar-right {
+    width: 30%;
+}
+
+.searchBar-left form {
+    float: right;
+}
+
+.searchBar-right form {
+    font: left;
+}
+
 
 main {
     margin-top: 0px;
@@ -150,6 +164,14 @@ main {
     margin: 0px;
   }
 
+  .searchBar-left {
+    width: 70%;
+  }
+
+  .searchBar-right {
+    width: 28%;
+  }
+
   .userInputSearchLocation {
     width: 27%;
     padding-left: 0 auto;
@@ -210,4 +232,8 @@ main {
   .listViewUnit-right {
     float: left;
   }
+
+
+
+
 }
