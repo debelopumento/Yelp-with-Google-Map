@@ -142,7 +142,13 @@ function renderBusinesses() {
             }
             row += '</p>';
             row += '<p><a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>' + ' | ' + tripDistances[i] + ', ' + tripDurations[i] + ' drive.</p>';
-            row += '<p>' + biz.location.display_address + '</p>';
+            
+            row += '<p><span>' + biz.location.address[0] + '</span>';
+            for (h=1; h < biz.location.address.length; h++) {
+                row += ', ' + '<span>' + biz.location.address[h] + '</span>';
+            }
+            row += ', ' + '<span>' + biz.location.city + '</span></p>';
+
             row += '<div><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span> ';
             row += '<span><a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '"><button>Get Directions</button></a></span></div>';
             row += '</div>';
