@@ -76,7 +76,7 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                     }
                 };
         
-                var terms = 'poke';
+                var terms = userInputSearchBiz;
                 var near = userInputSearchLocation;
 
         
