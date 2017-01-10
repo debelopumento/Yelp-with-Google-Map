@@ -74,7 +74,7 @@ main {
 
 .left {
     float: left;
-    width: 60%;
+    width: 36%;
     height: 450px;
     padding-right: 3px;
 }
@@ -89,7 +89,7 @@ main {
     float: right;
     padding-left: 1px;
     padding-right: 5px;
-    width: 38%;
+    width: 62%;
     height: 450px;
     overflow: scroll;
     border-radius: 10px;
@@ -97,8 +97,19 @@ main {
 }
 
 .listViewUnit {
+    display: flex;
     border-bottom: 1px darkgrey solid;
     padding: 2px;
+}
+
+.listViewUnit-left {
+    width: 30%;
+    padding: 5px;
+}
+
+.bizThumb {
+    width: 80%;
+    border-radius: 4px;
 }
 
 
@@ -191,5 +202,12 @@ main {
     padding-right: 0;
     margin-right: 5px;
     margin-left: 5px;
+  }
+
+  .listViewUnit-left {
+    float: left;
+  }
+  .listViewUnit-right {
+    float: left;
   }
 }

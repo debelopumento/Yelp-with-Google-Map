@@ -135,6 +135,8 @@ function renderBusinesses() {
             var destLat = biz.location.coordinate.latitude;
             var destLng = biz.location.coordinate.longitude;
             row += '<div class="listViewUnit">';
+            row += '<div class="listViewUnit-left"><img class="bizThumb" src="'+ biz.image_url + '">' + '</div>';
+            row += '<div class="listViewUnit-right">'
             row += '<div class="bizInfoTitleLine"><h4><a href="' + biz.mobile_url + '" target="_blank">' + biz.name + ' </a>' + '<img src="' + biz.rating_img_url_small + '"></h4></div>';
             row += '<p><span>' + biz.categories[0][0] + '</span>';
             for (h=1; h < biz.categories.length; h++) {
@@ -151,7 +153,7 @@ function renderBusinesses() {
 
             row += '<div><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span> ';
             row += '<span><a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '"><button>Get Directions</button></a></span></div>';
-            row += '</div>';
+            row += '</div></div>';
             var localCoord = {
                     lat: destLat,
                     lng: destLng
