@@ -67,27 +67,6 @@ main {
 }
 
 
-
-.searchBar-left {
-    width: 58%;
-}
-
-.searchBar-right {
-    width: 30%;
-}
-
-.searchBar-left form {
-    float: right;
-}
-
-.searchBar-right form {
-    font: left;
-}
-
-
-
-
-
 .left {
     float: left;
     width: 100%;
@@ -140,7 +119,29 @@ main {
     padding-right: 15px;
 }
 
+@media(min-width: 568px) {
+    .searchBar-left {
+        float: right;
+        margin-right: 4px;
+        text-align: right;
+        width: 55%;
+    }
 
+    .searchBar-right {
+        float: left;
+        margin-left: 4px;
+        text-align: left;
+        width: 50%;
+    }
+
+    .searchBar-left form {
+        float: right;
+    }
+
+    .searchBar-right form {
+        float: left;
+    }
+}
 
 @media (max-width: 567px) {
   
@@ -166,6 +167,7 @@ main {
     margin-left: 0;
     margin-right: 0;
     border-radius: 1px;
+    display: flex;
   }
 
   main {
@@ -246,4 +248,19 @@ main {
 
 
 
-}
+  .searchBar-left {
+    width: 70%;
+  }
+
+  .searchBar-right {
+    width: 28%;
+  }
+
+  .searchBar-left form {
+    width: 100%
+  }
+
+  .searchBar-right form {
+    width: 100%;
+  }
+
