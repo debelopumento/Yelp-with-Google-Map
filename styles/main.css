@@ -58,6 +58,7 @@ main {
     margin: 0 auto;
     height: 100%;
     display: flex;
+    padding-top: 33px;
 }
 
 .userInputSearchLocation {
@@ -87,7 +88,8 @@ main {
     float: right;
     padding-left: 2px;
     padding-right: 2px;
-    width: 650px;
+    padding-top: 2px;
+    width: 450px;
     height: 100%;
     overflow: scroll;
     border-radius: 10px;
