@@ -1,7 +1,7 @@
 var mapState = {
-            latitude: 37.773972, 
-            longitude: -122.431297,
-            map: null
+        latitude: 37.773972, 
+        longitude: -122.431297,
+        map: null
 };
 
 var userLocation = {
@@ -115,7 +115,9 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
 
                 .done(function(results) {
                         searchResults = results;
+                        renderBusinesses();
                         calculateTrips();
+
                     }
                 )
 }
@@ -143,7 +145,8 @@ function renderBusinesses() {
                 row += '<span>, ' + biz.categories[h][0]  +'</span>';
             }
             row += '</p>';
-            row += '<p><a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a>' + ' | ' + tripDistances[i] + ', ' + tripDurations[i] + ' drive.</p>';
+            row += '<span><a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a> | </span>'
+            row += '<span class="tripEstDis">' + tripDistances[i] + '</span>, <span class="tripEstDur">' + tripDurations[i] + ' drive.</span>';
             
             row += '<p><span>' + biz.location.address[0] + '</span>';
             for (h=1; h < biz.location.address.length; h++) {
@@ -222,8 +225,9 @@ function calculateTrips() {
                     console.log(99, results[0].distance.text);
                     tripDistances.push(results[0].distance.text);
                     tripDurations.push(results[0].duration.text);
-                    //console.log(90, tripDurations);
-                    renderBusinesses();
+                    console.log(90, tripDurations);
+                    $('.tripEstDis').html(results[0].distance.text);
+                    $('.tripEstDur').html(results[0].duration.text);
 
             });
         }   
