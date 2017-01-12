@@ -129,7 +129,6 @@ function renderBusinesses() {
         console.log(searchResults);
         console.log(2, searchResults.businesses);
         searchResults.businesses.map(function(biz){
-            
             var destLat = biz.location.coordinate.latitude;
             var destLng = biz.location.coordinate.longitude;
             row += '<div class="listViewUnit">';
@@ -140,17 +139,14 @@ function renderBusinesses() {
             for (h=1; h < biz.categories.length; h++) {
                 row += '<span>, ' + biz.categories[h][0]  +'</span>';
             }
-
             row += '</p>';
             row += '<span><a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a> | </span>'
             row += '<span class="tripEstDis"></span>, <span class="tripEstDur"> drive.</span>';
-            
             row += '<p><span>' + biz.location.address[0] + '</span>';
             for (h=1; h < biz.location.address.length; h++) {
                 row += ', ' + '<span>' + biz.location.address[h] + '</span>';
             }
             row += ', ' + '<span>' + biz.location.city + '</span></p>';
-
             row += '<div><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span> ';
             row += '<span><a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '"><button>Get Directions</button></a></span></div>';
             row += '</div></div>';
