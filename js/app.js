@@ -10,8 +10,6 @@ var userLocation = {
 };
 
 var searchResults = {};
-var tripDistances = [];
-var tripDurations = [];
 
 $(function() {
     initMap();
@@ -117,7 +115,6 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                         searchResults = results;
                         renderBusinesses();
                         calculateTrips();
-
                     }
                 )
 }
@@ -126,14 +123,13 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
 function renderBusinesses() {
         var row = '';
         var businessNum = searchResults.businesses.length;
-        var locations=[];
         var bizNames=[];
         var bizInfo=[];
         var markers=[];
         console.log(searchResults);
-        var resultBusinesses = searchResults.businesses;
-        for (var i = 0; i < businessNum; i++) {
-            var biz = resultBusinesses[i];
+        console.log(2, searchResults.businesses);
+        searchResults.businesses.map(function(biz){
+            
             var destLat = biz.location.coordinate.latitude;
             var destLng = biz.location.coordinate.longitude;
             row += '<div class="listViewUnit">';
@@ -144,9 +140,10 @@ function renderBusinesses() {
             for (h=1; h < biz.categories.length; h++) {
                 row += '<span>, ' + biz.categories[h][0]  +'</span>';
             }
+
             row += '</p>';
             row += '<span><a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a> | </span>'
-            row += '<span class="tripEstDis">' + tripDistances[i] + '</span>, <span class="tripEstDur">' + tripDurations[i] + ' drive.</span>';
+            row += '<span class="tripEstDis"></span>, <span class="tripEstDur"> drive.</span>';
             
             row += '<p><span>' + biz.location.address[0] + '</span>';
             for (h=1; h < biz.location.address.length; h++) {
@@ -161,17 +158,18 @@ function renderBusinesses() {
                     lat: destLat,
                     lng: destLng
             };
-            locations.push(localCoord);
             bizNames.push(biz.name);
             var marker = new google.maps.Marker({
                 position: {lat: destLat, lng: destLng},
                 map: mapState.map
             });
             markers.push(marker);
-            bizInfo[i] = biz.name + ' ' + biz.location.display_address + ' ' + biz.display_phone;
-            attachBizInfo(marker, bizInfo[i]);
+            bizInfo = biz.name + ' ' + biz.location.display_address + ' ' + biz.display_phone;
+            attachBizInfo(marker, bizInfo);
+        });
+
+        
     
-        }
         $('.js-search-results').html(row);
 
 
@@ -207,9 +205,9 @@ function attachBizInfo(marker, bizInfo) {
 
 
 function calculateTrips() {
-    //var origin = "san francisco";
     var origin = {lat: userLocation.latitude, lng: userLocation.longitude};
-        for (i=0; i<20; i++) {
+    var businessNum = searchResults.businesses.length;
+        for (i=0; i<businessNum; i++) {
             var destination = {lat: searchResults.businesses[i].location.coordinate.latitude, lng: searchResults.businesses[i].location.coordinate.longitude};
             var service = new google.maps.DistanceMatrixService;
             service.getDistanceMatrix({
@@ -221,14 +219,8 @@ function calculateTrips() {
               avoidTolls: false
               }, function(response) {
                     var results = response.rows[0].elements;
-                    //console.log(5, response.rows);
-                    console.log(99, results[0].distance.text);
-                    tripDistances.push(results[0].distance.text);
-                    tripDurations.push(results[0].duration.text);
-                    console.log(90, tripDurations);
                     $('.tripEstDis').html(results[0].distance.text);
                     $('.tripEstDur').html(results[0].duration.text);
-
             });
         }   
 }
