@@ -56,7 +56,7 @@ nav {
 
 main {
     margin: 0 auto;
-    height: 100%;
+    height: calc(100% - 35px);
     display: flex;
     padding-top: 33px;
 }
@@ -179,7 +179,7 @@ main {
   main {
     padding-top: 2px;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 53px);
     margin: 0;
     display: block;
   }
