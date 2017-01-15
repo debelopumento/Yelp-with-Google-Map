@@ -1,27 +1,31 @@
+
 $(function() {
+    initMap();
+});
+
+
+function initMap() {
     var mapState = {
         latitude: 37.773972, 
         longitude: -122.431297,
         map: null
     };
-    initMap(mapState);
-    getResult("", "san francisco", "san francisco", mapState);
-    watchSubmit(mapState);
-});
-
-
-function initMap(mapState) {
     mapState.map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: mapState.latitude, lng: mapState.longitude},
+          center: {lat: 37.773972, lng: -122.431297},
           zoom: 14
         });
-}
- 
-function watchSubmit(mapState) {
+    
     var userLocation = {
         latitude: 37.773972,
         longitude: -122.431297
     };
+
+    getResult("", "san francisco", userLocation, mapState);
+    watchSubmit(mapState);
+}
+ 
+function watchSubmit(mapState) {
+    
 
     $('.js-search-form').submit(function(){
         event.preventDefault();
@@ -199,7 +203,9 @@ function attachBizInfo(marker, bizInfo) {
 
 
 function calculateTrips(searchResults, userLocation) {
+    console.log(43);
     var origin = {lat: userLocation.latitude, lng: userLocation.longitude};
+    console.log(44, userLocation);
     var businessNum = searchResults.businesses.length;
         for (i=0; i<businessNum; i++) {
             var destination = {lat: searchResults.businesses[i].location.coordinate.latitude, lng: searchResults.businesses[i].location.coordinate.longitude};
@@ -212,6 +218,8 @@ function calculateTrips(searchResults, userLocation) {
               avoidHighways: false,
               avoidTolls: false
               }, function(response) {
+                        console.log(3);
+
                     var results = response.rows[0].elements;
                     $('.tripEstDis').html(results[0].distance.text);
                     $('.tripEstDur').html(results[0].duration.text);
