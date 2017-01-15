@@ -1,28 +1,23 @@
-var mapState = {
+$(function() {
+    var mapState = {
         latitude: 37.773972, 
         longitude: -122.431297,
         map: null
-};
-
-
-
-
-
-$(function() {
-    initMap();
-    getResult("", "san francisco");
-    watchSubmit();
+    };
+    initMap(mapState);
+    getResult("", "san francisco", "san francisco", mapState);
+    watchSubmit(mapState);
 });
 
 
-function initMap() {
+function initMap(mapState) {
     mapState.map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: mapState.latitude, lng: mapState.longitude},
           zoom: 14
         });
 }
  
-function watchSubmit() {
+function watchSubmit(mapState) {
     var userLocation = {
         latitude: 37.773972,
         longitude: -122.431297
@@ -41,7 +36,7 @@ function watchSubmit() {
             output.innerHTML = "Unable to retrieve your location";
         }
         navigator.geolocation.getCurrentPosition(success, error);
-        getResult(userInputSearchBiz, userInputSearchLocation, userLocation);
+        getResult(userInputSearchBiz, userInputSearchLocation, userLocation, mapState);
     });
 
     $('.js-search-currentLoc-form').submit(function(){
@@ -52,7 +47,7 @@ function watchSubmit() {
             userLocation.latitude  = position.coords.latitude;
             userLocation.longitude = position.coords.longitude;
             var userInputSearchLocation = userLocation.latitude.toString() + ", " + userLocation.longitude.toString();
-            getResult(userInputSearchBizCurrentLoc, userInputSearchLocation, userLocation);
+            getResult(userInputSearchBizCurrentLoc, userInputSearchLocation, userLocation, mapState);
         }
         function error() {
             output.innerHTML = "Unable to retrieve your location";
@@ -63,7 +58,7 @@ function watchSubmit() {
 }
 
 
-function getResult (userInputSearchBiz, userInputSearchLocation, userLocation) {
+function getResult (userInputSearchBiz, userInputSearchLocation, userLocation, mapState) {
                 function cb(data) {        
                     console.log("cb: " + JSON.stringify(data));
                 }
@@ -116,14 +111,14 @@ function getResult (userInputSearchBiz, userInputSearchLocation, userLocation) {
 
                 .done(function(results) {
                         var searchResults = results;
-                        renderBusinesses(searchResults);
+                        renderBusinesses(searchResults ,mapState);
                         calculateTrips(searchResults, userLocation);
                     }
                 )
 }
 
 
-function renderBusinesses(searchResults) {
+function renderBusinesses(searchResults, mapState) {
         var row = '';
         var businessNum = searchResults.businesses.length;
         var bizNames=[];
