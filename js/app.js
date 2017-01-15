@@ -4,10 +4,7 @@ var mapState = {
         map: null
 };
 
-var userLocation = {
-        latitude: 37.773972,
-        longitude: -122.431297
-};
+
 
 
 
@@ -26,6 +23,11 @@ function initMap() {
 }
  
 function watchSubmit() {
+    var userLocation = {
+        latitude: 37.773972,
+        longitude: -122.431297
+    };
+
     $('.js-search-form').submit(function(){
         event.preventDefault();
         var userInputSearchLocation = $(this).find('.js-userInputSearchLocation').val();
@@ -39,7 +41,7 @@ function watchSubmit() {
             output.innerHTML = "Unable to retrieve your location";
         }
         navigator.geolocation.getCurrentPosition(success, error);
-        getResult(userInputSearchBiz, userInputSearchLocation);
+        getResult(userInputSearchBiz, userInputSearchLocation, userLocation);
     });
 
     $('.js-search-currentLoc-form').submit(function(){
@@ -50,7 +52,7 @@ function watchSubmit() {
             userLocation.latitude  = position.coords.latitude;
             userLocation.longitude = position.coords.longitude;
             var userInputSearchLocation = userLocation.latitude.toString() + ", " + userLocation.longitude.toString();
-            getResult(userInputSearchBizCurrentLoc, userInputSearchLocation);
+            getResult(userInputSearchBizCurrentLoc, userInputSearchLocation, userLocation);
         }
         function error() {
             output.innerHTML = "Unable to retrieve your location";
@@ -61,7 +63,7 @@ function watchSubmit() {
 }
 
 
-function getResult (userInputSearchBiz, userInputSearchLocation) {
+function getResult (userInputSearchBiz, userInputSearchLocation, userLocation) {
                 function cb(data) {        
                     console.log("cb: " + JSON.stringify(data));
                 }
@@ -115,7 +117,7 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                 .done(function(results) {
                         var searchResults = results;
                         renderBusinesses(searchResults);
-                        calculateTrips(searchResults);
+                        calculateTrips(searchResults, userLocation);
                     }
                 )
 }
@@ -201,7 +203,7 @@ function attachBizInfo(marker, bizInfo) {
 }
 
 
-function calculateTrips() {
+function calculateTrips(searchResults, userLocation) {
     var origin = {lat: userLocation.latitude, lng: userLocation.longitude};
     var businessNum = searchResults.businesses.length;
         for (i=0; i<businessNum; i++) {
