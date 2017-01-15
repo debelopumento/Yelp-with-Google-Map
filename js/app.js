@@ -9,7 +9,7 @@ var userLocation = {
         longitude: -122.431297
 };
 
-var searchResults = {};
+
 
 $(function() {
     initMap();
@@ -113,15 +113,15 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                 })
 
                 .done(function(results) {
-                        searchResults = results;
-                        renderBusinesses();
-                        calculateTrips();
+                        var searchResults = results;
+                        renderBusinesses(searchResults);
+                        calculateTrips(searchResults);
                     }
                 )
 }
 
 
-function renderBusinesses() {
+function renderBusinesses(searchResults) {
         var row = '';
         var businessNum = searchResults.businesses.length;
         var bizNames=[];
