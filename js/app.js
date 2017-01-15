@@ -13,6 +13,7 @@ var searchResults = {};
 
 $(function() {
     initMap();
+    getResult("", "san francisco");
     watchSubmit();
 });
 
@@ -20,7 +21,7 @@ $(function() {
 function initMap() {
     mapState.map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: mapState.latitude, lng: mapState.longitude},
-          zoom: 12
+          zoom: 14
         });
 }
  
