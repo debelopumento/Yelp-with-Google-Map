@@ -172,10 +172,11 @@ function renderBusinesses(distances, durations) {
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
         $('.js-swapMap').click(function(event){
+            console.log(4);
             var navBizId = $(this).closest('button').attr('id');
-            var bizPos = resultBusinesses.map(function(businesses){return businesses.id;}).indexOf(navBizId);
-            mapState.latitude = resultBusinesses[bizPos].location.coordinate.latitude;
-            mapState.longitude = resultBusinesses[bizPos].location.coordinate.longitude;
+            var bizPos = searchResults.businesses.map(function(businesses){return businesses.id;}).indexOf(navBizId);
+            mapState.latitude = searchResults.businesses[bizPos].location.coordinate.latitude;
+            mapState.longitude = searchResults.businesses[bizPos].location.coordinate.longitude;
             mapState.map.setCenter({lat: mapState.latitude, lng: mapState.longitude});
             mapState.map.setZoom(17); 
         });  
