@@ -4,8 +4,6 @@ var mapState = {
         map: null
 };
 
-
-
 var searchResults = {};
 
 $(function() {
