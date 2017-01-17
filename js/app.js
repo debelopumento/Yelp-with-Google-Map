@@ -1,32 +1,31 @@
+var mapState = {
+        latitude: 37.773972, 
+        longitude: -122.431297,
+        map: null
+};
+
+var userLocation = {
+        latitude: 37.773972,
+        longitude: -122.431297
+};
+
+var searchResults = {};
 
 $(function() {
     initMap();
+    getResult("", "san francisco");
+    watchSubmit();
 });
 
 
 function initMap() {
-    var mapState = {
-        latitude: 37.773972, 
-        longitude: -122.431297,
-        map: null
-    };
     mapState.map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 37.773972, lng: -122.431297},
+          center: {lat: mapState.latitude, lng: mapState.longitude},
           zoom: 14
         });
-    
-    var userLocation = {
-        latitude: 37.773972,
-        longitude: -122.431297
-    };
-
-    getResult("", "san francisco", userLocation, mapState);
-    watchSubmit(mapState);
 }
  
-function watchSubmit(mapState) {
-    
-
+function watchSubmit() {
     $('.js-search-form').submit(function(){
         event.preventDefault();
         var userInputSearchLocation = $(this).find('.js-userInputSearchLocation').val();
@@ -40,7 +39,7 @@ function watchSubmit(mapState) {
             output.innerHTML = "Unable to retrieve your location";
         }
         navigator.geolocation.getCurrentPosition(success, error);
-        getResult(userInputSearchBiz, userInputSearchLocation, userLocation, mapState);
+        getResult(userInputSearchBiz, userInputSearchLocation);
     });
 
     $('.js-search-currentLoc-form').submit(function(){
@@ -51,7 +50,7 @@ function watchSubmit(mapState) {
             userLocation.latitude  = position.coords.latitude;
             userLocation.longitude = position.coords.longitude;
             var userInputSearchLocation = userLocation.latitude.toString() + ", " + userLocation.longitude.toString();
-            getResult(userInputSearchBizCurrentLoc, userInputSearchLocation, userLocation, mapState);
+            getResult(userInputSearchBizCurrentLoc, userInputSearchLocation);
         }
         function error() {
             output.innerHTML = "Unable to retrieve your location";
@@ -62,7 +61,7 @@ function watchSubmit(mapState) {
 }
 
 
-function getResult (userInputSearchBiz, userInputSearchLocation, userLocation, mapState) {
+function getResult (userInputSearchBiz, userInputSearchLocation) {
                 function cb(data) {        
                     console.log("cb: " + JSON.stringify(data));
                 }
@@ -114,15 +113,17 @@ function getResult (userInputSearchBiz, userInputSearchLocation, userLocation, m
                 })
 
                 .done(function(results) {
-                        var searchResults = results;
-                        renderBusinesses(searchResults ,mapState);
-                        calculateTrips(searchResults, userLocation);
+                        searchResults = results;
+                        var distances = [];
+                        var durations = [];
+                        renderBusinesses(distances, durations);
+                        calculateTrips();
                     }
                 )
 }
 
 
-function renderBusinesses(searchResults, mapState) {
+function renderBusinesses(distances, durations) {
         var row = '';
         var businessNum = searchResults.businesses.length;
         var bizNames=[];
@@ -130,6 +131,7 @@ function renderBusinesses(searchResults, mapState) {
         var markers=[];
         console.log(searchResults);
         console.log(2, searchResults.businesses);
+        var bizArrayId = 0; 
         searchResults.businesses.map(function(biz){
             var destLat = biz.location.coordinate.latitude;
             var destLng = biz.location.coordinate.longitude;
@@ -143,7 +145,7 @@ function renderBusinesses(searchResults, mapState) {
             }
             row += '</p>';
             row += '<span><a href="tel:' + biz.display_phone + '">' + biz.display_phone + '</a> | </span>'
-            row += '<span class="tripEstDis"></span>, <span class="tripEstDur"> drive.</span>';
+            row += '<span class="tripEstDis" tripID="' + bizArrayId + '">' + distances[bizArrayId] + '</span>, <span class="tripEstDur">' + durations[bizArrayId]  +' drive.</span>';
             row += '<p><span>' + biz.location.address[0] + '</span>';
             for (h=1; h < biz.location.address.length; h++) {
                 row += ', ' + '<span>' + biz.location.address[h] + '</span>';
@@ -152,6 +154,7 @@ function renderBusinesses(searchResults, mapState) {
             row += '<div><span><button class="js-swapMap" id="' + biz.id + '" type="button" value="button">Center On Map</button></span> ';
             row += '<span><a href="https://maps.google.com?saddr=Current+Location&daddr=' + destLat +',' + destLng + '"><button>Get Directions</button></a></span></div>';
             row += '</div></div>';
+            bizArrayId = bizArrayId + 1;
             var localCoord = {
                     lat: destLat,
                     lng: destLng
@@ -166,7 +169,6 @@ function renderBusinesses(searchResults, mapState) {
             attachBizInfo(marker, bizInfo);
         });
 
-        
     
         $('.js-search-results').html(row);
 
@@ -202,10 +204,10 @@ function attachBizInfo(marker, bizInfo) {
 }
 
 
-function calculateTrips(searchResults, userLocation) {
-    console.log(43);
+function calculateTrips() {
+    var distances = [];
+    var durations = [];
     var origin = {lat: userLocation.latitude, lng: userLocation.longitude};
-    console.log(44, userLocation);
     var businessNum = searchResults.businesses.length;
         for (i=0; i<businessNum; i++) {
             var destination = {lat: searchResults.businesses[i].location.coordinate.latitude, lng: searchResults.businesses[i].location.coordinate.longitude};
@@ -218,11 +220,15 @@ function calculateTrips(searchResults, userLocation) {
               avoidHighways: false,
               avoidTolls: false
               }, function(response) {
-                        console.log(3);
-
                     var results = response.rows[0].elements;
-                    $('.tripEstDis').html(results[0].distance.text);
-                    $('.tripEstDur').html(results[0].duration.text);
+                    console.log(10, response);
+                    distances.push(results[0].distance.text);
+                    durations.push(results[0].duration.text);
+                    
+                    console.log(12, distances);
+                    renderBusinesses(distances, durations);
+                    //console.log(3, results[0].distance.text, results[0].duration.text);
             });
         }   
 }
+
