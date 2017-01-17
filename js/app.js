@@ -4,10 +4,7 @@ var mapState = {
         map: null
 };
 
-var userLocation = {
-        latitude: 37.773972,
-        longitude: -122.431297
-};
+
 
 var searchResults = {};
 
@@ -26,6 +23,10 @@ function initMap() {
 }
  
 function watchSubmit() {
+    var userLocation = {
+        latitude: 37.773972,
+        longitude: -122.431297
+    };
     $('.js-search-form').submit(function(){
         event.preventDefault();
         var userInputSearchLocation = $(this).find('.js-userInputSearchLocation').val();
