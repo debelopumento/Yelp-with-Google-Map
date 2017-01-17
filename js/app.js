@@ -30,15 +30,6 @@ function watchSubmit() {
         event.preventDefault();
         var userInputSearchLocation = $(this).find('.js-userInputSearchLocation').val();
         var userInputSearchBiz = $(this).find('.js-userInputSearchBiz').val();
-        //get user location
-        function success(position) {
-            userLocation.latitude  = position.coords.latitude;
-            userLocation.longitude = position.coords.longitude;
-        }
-        function error() {
-            output.innerHTML = "Unable to retrieve your location";
-        }
-        navigator.geolocation.getCurrentPosition(success, error);
         getResult(userInputSearchBiz, userInputSearchLocation);
     });
 
@@ -117,7 +108,7 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                         var distances = [];
                         var durations = [];
                         renderBusinesses(distances, durations);
-                        calculateTrips();
+                        calculateTrips(userInputSearchLocation);
                     }
                 )
 }
@@ -130,7 +121,6 @@ function renderBusinesses(distances, durations) {
         var bizInfo=[];
         var markers=[];
         console.log(searchResults);
-        console.log(2, searchResults.businesses);
         var bizArrayId = 0; 
         searchResults.businesses.map(function(biz){
             var destLat = biz.location.coordinate.latitude;
@@ -204,10 +194,10 @@ function attachBizInfo(marker, bizInfo) {
 }
 
 
-function calculateTrips() {
+function calculateTrips(userInputSearchLocation) {
     var distances = [];
     var durations = [];
-    var origin = {lat: userLocation.latitude, lng: userLocation.longitude};
+    var origin = userInputSearchLocation;
     var businessNum = searchResults.businesses.length;
         for (i=0; i<businessNum; i++) {
             var destination = {lat: searchResults.businesses[i].location.coordinate.latitude, lng: searchResults.businesses[i].location.coordinate.longitude};
@@ -221,11 +211,8 @@ function calculateTrips() {
               avoidTolls: false
               }, function(response) {
                     var results = response.rows[0].elements;
-                    console.log(10, response);
                     distances.push(results[0].distance.text);
                     durations.push(results[0].duration.text);
-                    
-                    console.log(12, distances);
                     renderBusinesses(distances, durations);
                     //console.log(3, results[0].distance.text, results[0].duration.text);
             });
