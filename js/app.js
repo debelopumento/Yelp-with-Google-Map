@@ -12,7 +12,6 @@ $(function() {
     watchSubmit();
 });
 
-
 function initMap() {
     mapState.map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: mapState.latitude, lng: mapState.longitude},
@@ -47,9 +46,7 @@ function watchSubmit() {
         }
         navigator.geolocation.getCurrentPosition(success, error);      
     });    
-
 }
-
 
 function getResult (userInputSearchBiz, userInputSearchLocation) {
                 function cb(data) {        
@@ -111,7 +108,6 @@ function getResult (userInputSearchBiz, userInputSearchLocation) {
                     }
                 )
 }
-
 
 function renderBusinesses(distances, durations) {
         var row = '';
@@ -182,8 +178,6 @@ function renderBusinesses(distances, durations) {
         });  
 }
 
-
-
 function attachBizInfo(marker, bizInfo) {
     var infowindow = new google.maps.InfoWindow({
           content: bizInfo
@@ -192,7 +186,6 @@ function attachBizInfo(marker, bizInfo) {
           infowindow.open(marker.get('map'), marker);
         });
 }
-
 
 function calculateTrips(userInputSearchLocation) {
     var distances = [];
@@ -218,4 +211,3 @@ function calculateTrips(userInputSearchLocation) {
             });
         }   
 }
-
